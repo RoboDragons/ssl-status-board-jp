@@ -27,18 +27,18 @@ export const mapStageToText = function (stage) {
 
 
 const commandToText = new Map();
-commandToText.set(Referee.Command.HALT, 'ゲームは停止されました');
-commandToText.set(Referee.Command.STOP, 'ゲームは中断されました');
-commandToText.set(Referee.Command.NORMAL_START, 'ゲームが進行中です');
-commandToText.set(Referee.Command.FORCE_START, 'ゲームが進行中です');
+commandToText.set(Referee.Command.HALT, '停止中');
+commandToText.set(Referee.Command.STOP, '中断中');
+commandToText.set(Referee.Command.NORMAL_START, '進行中');
+commandToText.set(Referee.Command.FORCE_START, '進行中');
 commandToText.set(Referee.Command.PREPARE_KICKOFF_YELLOW, 'キックオフ');
 commandToText.set(Referee.Command.PREPARE_KICKOFF_BLUE, 'キックオフ');
 commandToText.set(Referee.Command.PREPARE_PENALTY_YELLOW, 'ペナルティキック');
 commandToText.set(Referee.Command.PREPARE_PENALTY_BLUE, 'ペナルティキック');
-commandToText.set(Referee.Command.DIRECT_FREE_YELLOW, 'ゲームが進行中です');
-commandToText.set(Referee.Command.DIRECT_FREE_BLUE, 'ゲームが進行中です');
-commandToText.set(Referee.Command.INDIRECT_FREE_YELLOW, 'ゲームが進行中です');
-commandToText.set(Referee.Command.INDIRECT_FREE_BLUE, 'ゲームが進行中です');
+commandToText.set(Referee.Command.DIRECT_FREE_YELLOW, '進行中');
+commandToText.set(Referee.Command.DIRECT_FREE_BLUE, '進行中');
+commandToText.set(Referee.Command.INDIRECT_FREE_YELLOW, '進行中');
+commandToText.set(Referee.Command.INDIRECT_FREE_BLUE, '進行中');
 commandToText.set(Referee.Command.TIMEOUT_YELLOW, 'タイムアウト');
 commandToText.set(Referee.Command.TIMEOUT_BLUE, 'タイムアウト');
 commandToText.set(Referee.Command.GOAL_YELLOW, 'ゴール');
