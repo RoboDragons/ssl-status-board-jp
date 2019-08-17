@@ -2,7 +2,7 @@ import {Referee} from "./sslProto"
 import sslProto from "./sslProto"
 
 const stageToText = new Map();
-stageToText.set(Referee.Stage.NORMAL_FIRST_HALF_PRE, '試合はまもなく開始します');
+stageToText.set(Referee.Stage.NORMAL_FIRST_HALF_PRE, '試合の準備中です');
 stageToText.set(Referee.Stage.NORMAL_FIRST_HALF, '前半戦');
 stageToText.set(Referee.Stage.NORMAL_HALF_TIME, 'ハーフタイム');
 stageToText.set(Referee.Stage.NORMAL_SECOND_HALF_PRE, '後半戦');
@@ -27,18 +27,18 @@ export const mapStageToText = function (stage) {
 
 
 const commandToText = new Map();
-commandToText.set(Referee.Command.HALT, '停止中');
-commandToText.set(Referee.Command.STOP, '中断中');
-commandToText.set(Referee.Command.NORMAL_START, '進行中');
-commandToText.set(Referee.Command.FORCE_START, '進行中');
+commandToText.set(Referee.Command.HALT, '強制停止 (Halt)');
+commandToText.set(Referee.Command.STOP, '試合ストップ (Stop)');
+commandToText.set(Referee.Command.NORMAL_START, '進行中 (Normal)');
+commandToText.set(Referee.Command.FORCE_START, '進行中 (Force)');
 commandToText.set(Referee.Command.PREPARE_KICKOFF_YELLOW, 'キックオフ');
 commandToText.set(Referee.Command.PREPARE_KICKOFF_BLUE, 'キックオフ');
 commandToText.set(Referee.Command.PREPARE_PENALTY_YELLOW, 'ペナルティキック');
 commandToText.set(Referee.Command.PREPARE_PENALTY_BLUE, 'ペナルティキック');
-commandToText.set(Referee.Command.DIRECT_FREE_YELLOW, '進行中');
-commandToText.set(Referee.Command.DIRECT_FREE_BLUE, '進行中');
-commandToText.set(Referee.Command.INDIRECT_FREE_YELLOW, '進行中');
-commandToText.set(Referee.Command.INDIRECT_FREE_BLUE, '進行中');
+commandToText.set(Referee.Command.DIRECT_FREE_YELLOW, '進行中 (Direct)');
+commandToText.set(Referee.Command.DIRECT_FREE_BLUE, '進行中 (Direct)');
+commandToText.set(Referee.Command.INDIRECT_FREE_YELLOW, '進行中 (Indirect)');
+commandToText.set(Referee.Command.INDIRECT_FREE_BLUE, '進行中 (Indirect)');
 commandToText.set(Referee.Command.TIMEOUT_YELLOW, 'タイムアウト');
 commandToText.set(Referee.Command.TIMEOUT_BLUE, 'タイムアウト');
 commandToText.set(Referee.Command.GOAL_YELLOW, 'ゴール');
@@ -84,7 +84,7 @@ const teamAndBot = function (event) {
 };
 
 const radToDeg = function (rad) {
-    return Math.ceil(rad * 180 / Math.PI) + '°';
+    return Math.ceil(rad * 180 / Math.PI) + '度';
 };
 
 const velocity = function (v) {
@@ -101,7 +101,7 @@ const seconds = function (v) {
 
 export const mapGameEventToText = function (event) {
     if (event.prepared != null) {
-        return `Prepared after ${seconds(event.prepared.timeTaken)}`;
+        return `${seconds(event.prepared.timeTaken)} で準備が完了しました`;
     }
     if (event.noProgressInGame != null) {
         return `${seconds(event.noProgressInGame.time)} の間進展がありませんでした`;
@@ -120,7 +120,7 @@ export const mapGameEventToText = function (event) {
         return `${teamAndBot(event.botSubstitution)} はロボットの置換を要請しています`;
     }
     if (event.tooManyRobots != null) {
-        return `${teamAndBot(event.tooManyRobots)} のロボットがフィールド上に多すぎます`;
+        return `${teamAndBot(event.tooManyRobots)} のロボットが規定個数を超えてフィールド上に配置されています`;
     }
     if (event.ballLeftFieldTouchLine != null) {
         return `${teamAndBot(event.ballLeftFieldTouchLine)} はタッチラインの外へボールを蹴りました`;
@@ -141,7 +141,7 @@ export const mapGameEventToText = function (event) {
         return `${teamAndBot(event.chippedGoal)} はゴールへチップキックしました`;
     }
     if (event.aimlessKick != null) {
-        return `${teamAndBot(event.aimlessKick)} はあてもなくキックをしました`;
+        return `${teamAndBot(event.aimlessKick)} はエイムレスキックをしました`;
     }
     if (event.kickTimeout != null) {
         return `${teamAndBot(event.kickTimeout)} `
@@ -149,7 +149,7 @@ export const mapGameEventToText = function (event) {
     }
     if (event.keeperHeldBall != null) {
         return `${teamAndBot(event.keeperHeldBall)}'のキーパーは`
-            + ` ${seconds(event.keeperHeldBall.duration)}　の間ボールを保持しました`;
+            + ` ${seconds(event.keeperHeldBall.duration)}　ボールを保持しました`;
     }
     if (event.attackerDoubleTouchedBall != null) {
         return `${teamAndBot(event.attackerDoubleTouchedBall)} はボールに複数回触りました`;
@@ -180,7 +180,7 @@ export const mapGameEventToText = function (event) {
     }
     if (event.attackerTooCloseToDefenseArea != null) {
         return `${teamAndBot(event.attackerTooCloseToDefenseArea)} は相手チームのディフェンスエリアに規定以上近づきました `
-            + `(${distance(event.attackerTooCloseToDefenseArea.distance)})`;
+            + `(距離: ${distance(event.attackerTooCloseToDefenseArea.distance)})`;
     }
     if (event.botInterferedPlacement != null) {
         return `${teamAndBot(event.botInterferedPlacement)} はボール配置に干渉しました`;
@@ -227,7 +227,7 @@ export const mapGameEventToText = function (event) {
         let otherTeam = oppositeTeam(byTeam);
         let violator = event.botCrashUniqueSkipped.violator;
         let victim = event.botCrashUniqueSkipped.victim;
-        let crashSpeed = event.botCrashUniqueSkipped.crashSpeed;
+        let crashSpeed = event.botCrashUniqueSkippe試合ストップd.crashSpeed;
         let crashAngle = event.botCrashUniqueSkipped.crashAngle;
         let speedDiff = event.botCrashUniqueSkipped.speedDiff;
         let text = `スキップ: ${formatTeam(byTeam)} の ${violator}`
@@ -271,37 +271,37 @@ export const mapGameEventToText = function (event) {
     }
     if (event.botHeldBallDeliberately != null) {
         return `${teamAndBot(event.botHeldBallDeliberately)} `
-            + `は故意にボールを ${event.botHeldBallDeliberately.duration} の間保持し続けました`;
+            + `は故意にボールを ${event.botHeldBallDeliberately.duration} 間保持し続けました`;
     }
     if (event.botTippedOver != null) {
         return `${teamAndBot(event.botTippedOver)} はチップキックをしました`;
     }
     if (event.botTooFastInStop != null) {
         return `${teamAndBot(event.botTooFastInStop)} `
-            + ` はゲーム中断中に規定速度を超えました (${velocity(event.botTooFastInStop.speed)})`;
+            + ` は試合ストップ中に規定速度を超えました (速度: ${velocity(event.botTooFastInStop.speed)})`;
     }
     if (event.defenderTooCloseToKickPoint != null) {
         return `${teamAndBot(event.defenderTooCloseToKickPoint)} `
-            + ` はキックポイントに過剰接近しました (${distance(event.defenderTooCloseToKickPoint.distance)})`;
+            + ` はキックポイントに過剰接近しました (距離: ${distance(event.defenderTooCloseToKickPoint.distance)})`;
     }
     if (event.defenderInDefenseAreaPartially != null) {
         return `${teamAndBot(event.defenderInDefenseAreaPartially)} `
             + `は自チームのディフェンスエリアに一部分侵入してボールに触りました `
-            + `(${distance(event.defenderInDefenseAreaPartially.distance)})`;
+            + `(距離: ${distance(event.defenderInDefenseAreaPartially.distance)})`;
     }
     if (event.defenderInDefenseArea != null) {
         return `${teamAndBot(event.defenderInDefenseArea)} `
             + `は自チームのディフェンスエリアに侵入してボールに触りました `
-            + `(${distance(event.defenderInDefenseArea.distance)})`;
+            + `(距離: ${distance(event.defenderInDefenseArea.distance)})`;
     }
     if (event.multipleCards != null) {
-        return `${teamAndBot(event.multipleCards)} は複数枚のカードを宣告されています`;
+        return `${teamAndBot(event.multipleCards)} のイエローカードが規定枚数を超過しました`;
     }
     if (event.multiplePlacementFailures != null) {
         return `${teamAndBot(event.multiplePlacementFailures)} はボール配置に複数回失敗しました`;
     }
     if (event.multipleFouls != null) {
-        return `${teamAndBot(event.multipleFouls)} は複数回のファウルを宣告されています`;
+        return `${teamAndBot(event.multipleFouls)} のファウルが規定回数を超過しました`;
     }
     if (event.unsportingBehaviorMinor != null) {
         return `${teamAndBot(event.unsportingBehaviorMinor)} によるサポートされない挙動: `
