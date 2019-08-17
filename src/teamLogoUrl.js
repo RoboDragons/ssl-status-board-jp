@@ -22,6 +22,11 @@ const knownLogos = new Map([
     ['umass-minutebots', require('@/assets/logos/umass-minutebots.png')],
     ['yellow', require('@/assets/logos/yellow.png')],
     ['zjunlict', require('@/assets/logos/zjunlict.png')],
+    ['input', require('@/assets/logos/input.png')],
+    ['sasa-kamatti', require('@/assets/logos/sasa-kamatti.png')],
+    ['scramble', require('@/assets/logos/scramble.png')],
+    ['roots', require('@/assets/logos/roots.png')],
+    ['team-aissac', require('@/assets/logos/team-aissac.png')],
 ]);
 
 import defaultLogo from '@/assets/logos/no-logo.png';
