@@ -149,7 +149,7 @@ export const mapGameEventToText = function (event) {
     }
     if (event.keeperHeldBall != null) {
         return `${teamAndBot(event.keeperHeldBall)}'のキーパーは`
-            + ` ${seconds(event.keeperHeldBall.duration)}　ボールを保持しました`;
+            + ` ${seconds(event.keeperHeldBall.duration)} ボールを保持しました`;
     }
     if (event.attackerDoubleTouchedBall != null) {
         return `${teamAndBot(event.attackerDoubleTouchedBall)} はボールに複数回触りました`;
