@@ -1,34 +1,46 @@
-[![CircleCI](https://circleci.com/gh/RoboCup-SSL/ssl-status-board/tree/master.svg?style=svg)](https://circleci.com/gh/RoboCup-SSL/ssl-status-board/tree/master)
-[![Go Report Card](https://goreportcard.com/badge/github.com/RoboCup-SSL/ssl-status-board?style=flat-square)](https://goreportcard.com/report/github.com/RoboCup-SSL/ssl-status-board)
-[![Go Doc](https://img.shields.io/badge/godoc-reference-blue.svg?style=flat-square)](https://godoc.org/github.com/RoboCup-SSL/ssl-status-board)
-[![Release](https://img.shields.io/github/release/RoboCup-SSL/ssl-status-board.svg?style=flat-square)](https://github.com/RoboCup-SSL/ssl-status-board/releases/latest)
-[![Coverage](https://img.shields.io/badge/coverage-report-blue.svg)](https://circleci.com/api/v1.1/project/github/RoboCup-SSL/ssl-status-board/latest/artifacts/0/coverage?branch=master)
-
-# SSL Status Board
+# SSL Status Board (Japanese)
 
 A Status Board for the Small Size League, optimized to show the current game state on a large screen.
 
-## Project setup
-```
-yarn install
+## ビルド
+
+フロントエンドのリソースまで一緒に埋め込まれたシングルバイナリ`cmd/ssl-status-board/ssl-status-board`が生成されます。
+生成された実行ファイル単体で動きます。
+
+ビルドには`go`と`yarn`が必要です。
+また、`go get`により`packr`がインストールされます。
+環境変数`GOPATH`の設定と、`$GOPATH/bin`を`PATH`に追加するのを忘れないでください。
+
+オフラインでキャッシュからビルドする場合は
+`build.sh`内の`go get`コマンドの`-u`オプションを削除してください。
+
+```console
+$ ./build.sh
 ```
 
-### Compiles and hot-reloads for development
-```
-yarn run serve
+## 設定
+
+`-c`オプションで指定したyamlファイル
+(デフォルトでは`board-config.yaml`)
+を読み込みます。
+以下はデフォルト設定をyamlとして書いたものです。
+
+```yaml
+ListenAddress: ":8082"
+RefereeConfig: 
+  Connection:
+    SubscribePath: "/api/referee"
+    SendingInterval: "100ms"
+    MulticastAddress: "224.5.23.1:10003"
 ```
 
-### Compiles and minifies for production
-```
-yarn run build
-```
+## チーム追加
 
-### Lints and fixes files
-```
-yarn run lint
-```
-
-### Rebuild Protobuf code
-```
-yarn run genProto
-```
+`src/assets/logos/`内にロゴの画像ファイル
+(512x512px、png)
+を置き、
+`src/teamLogoUrl.js`
+の`knownLogos`に登録します。
+キーは
+[ssl-game-controller](https://github.com/RoboCup-SSL/ssl-game-controller)
+の`src/components/settings/team/TeamName.vue`内の`TEAMS`に書かれたチーム名をJSで`.toLowerCase().replace(' ', '-')`した文字列です。
