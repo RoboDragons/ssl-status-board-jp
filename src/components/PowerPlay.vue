@@ -2,7 +2,7 @@
     <div>
         <span v-if="showPowerplay"
               :class="{'team-yellow': powerPlayTeam === 'Yellow', 'team-blue': powerPlayTeam === 'Blue'}">
-            Power play ({{botsYellow}} vs {{botsBlue}})
+            パワープレイ ({{botsYellow}} vs {{botsBlue}})
         </span>
     </div>
 </template>
