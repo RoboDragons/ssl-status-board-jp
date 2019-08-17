@@ -25,6 +25,7 @@ const knownLogos = new Map([
     ['input', require('@/assets/logos/input.png')],
     ['sasa-kamatti', require('@/assets/logos/sasa-kamatti.png')],
     ['scramble', require('@/assets/logos/scramble.png')],
+    ['roots', require('@/assets/logos/roots.png')],
 ]);
 
 import defaultLogo from '@/assets/logos/no-logo.png';
