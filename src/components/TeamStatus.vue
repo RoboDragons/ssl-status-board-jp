@@ -24,7 +24,7 @@
                 </span>
 
 
-                <div class="additional-cards" v-if="team.yellowCardTimes.length > 3"> + {{ team.yellowCardTimes.length - 3}} more </div>
+                <div class="additional-cards" v-if="team.yellowCardTimes.length > 3"> さらに {{ team.yellowCardTimes.length - 3}} 枚のカードがあります </div>
             </div>
         </div>
     </div>
