@@ -304,11 +304,11 @@ export const mapGameEventToText = function (event) {
         return `${teamAndBot(event.multipleFouls)} のファウルが規定回数を超過しました`;
     }
     if (event.unsportingBehaviorMinor != null) {
-        return `${teamAndBot(event.unsportingBehaviorMinor)} によるサポートされない挙動: `
+        return `${teamAndBot(event.unsportingBehaviorMinor)} によるスポーツマンシップに反する行為: `
             + event.unsportingBehaviorMinor.reason;
     }
     if (event.unsportingBehaviorMajor != null) {
-        return `${teamAndBot(event.unsportingBehaviorMajor)} による主要なサポートされない挙動: `
+        return `${teamAndBot(event.unsportingBehaviorMajor)} によるスポーツマンシップに反する大きな行為: `
             + event.unsportingBehaviorMajor.reason;
     }
     return '不明なゲームイベント';
