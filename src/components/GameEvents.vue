@@ -10,7 +10,7 @@
             </tr>
             </tbody>
         </table>
-        <div class="more-game-events" v-if="gameEvents.length > 8"> + {{gameEvents.length - 8}} more game events </div>
+        <div class="more-game-events" v-if="gameEvents.length > 8"> さらに {{gameEvents.length - 8}} のゲームイベントがあります </div>
     </div>
 </template>
 
