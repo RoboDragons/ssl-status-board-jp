@@ -274,7 +274,7 @@ export const mapGameEventToText = function (event) {
             + `は故意にボールを ${event.botHeldBallDeliberately.duration} 間保持し続けました`;
     }
     if (event.botTippedOver != null) {
-        return `${teamAndBot(event.botTippedOver)} はチップキックをしました`;
+        return `${teamAndBot(event.botTippedOver)} は転倒しました`;
     }
     if (event.botTooFastInStop != null) {
         return `${teamAndBot(event.botTooFastInStop)} `
