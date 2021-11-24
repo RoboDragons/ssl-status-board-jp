@@ -120,7 +120,8 @@ export const mapGameEventToText = function (event) {
         return `${teamAndBot(event.botSubstitution)} はロボットの置換を要請しています`;
     }
     if (event.tooManyRobots != null) {
-        return `${teamAndBot(event.tooManyRobots)} のロボットが規定個数を超えてフィールド上に配置されています`;
+        return `${teamAndBot(event.tooManyRobots)} のロボットがフィールド上に ${event.tooManyRobots.numRobotsOnField} 台ありますが、`
+            + `許可されているのは ${event.tooManyRobots.numRobotsAllowed} 台までです`;
     }
     if (event.ballLeftFieldTouchLine != null) {
         return `${teamAndBot(event.ballLeftFieldTouchLine)} はタッチラインの外へボールを蹴りました`;
@@ -139,6 +140,9 @@ export const mapGameEventToText = function (event) {
     }
     if (event.chippedGoal != null) {
         return `${teamAndBot(event.chippedGoal)} はゴールへチップキックしました`;
+    }
+    if (event.invalidGoal != null) {
+        return `Scored goal by ${teamAndBot(event.invalidGoal)} is invalid: ${event.invalidGoal.message}`;
     }
     if (event.aimlessKick != null) {
         return `${teamAndBot(event.aimlessKick)} はエイムレスキックをしました`;
@@ -180,7 +184,7 @@ export const mapGameEventToText = function (event) {
     }
     if (event.attackerTooCloseToDefenseArea != null) {
         return `${teamAndBot(event.attackerTooCloseToDefenseArea)} は相手チームのディフェンスエリアに規定以上近づきました `
-            + `(距離: ${distance(event.attackerTooCloseToDefenseArea.distance)})`;
+            + `(距離: ${distance(event.attackerTooCloseToDefenseArea.distance)})m`;
     }
     if (event.botInterferedPlacement != null) {
         return `${teamAndBot(event.botInterferedPlacement)} はボール配置に干渉しました`;
@@ -301,15 +305,28 @@ export const mapGameEventToText = function (event) {
         return `${teamAndBot(event.multiplePlacementFailures)} はボール配置に複数回失敗しました`;
     }
     if (event.multipleFouls != null) {
-        return `${teamAndBot(event.multipleFouls)} のファウルが規定回数を超過しました`;
+        return `${teamAndBot(event.multipleFouls)} は以下のファウルを宣告されています: ` +
+            event.multipleFouls.causedGameEvents.map(cause => mapGameEventToText(cause)).join(", ");
     }
     if (event.unsportingBehaviorMinor != null) {
         return `${teamAndBot(event.unsportingBehaviorMinor)} によるスポーツマンシップに反する行為: `
             + event.unsportingBehaviorMinor.reason;
     }
     if (event.unsportingBehaviorMajor != null) {
-        return `${teamAndBot(event.unsportingBehaviorMajor)} によるスポーツマンシップに反する大きな行為: `
+        return `${teamAndBot(event.unsportingBehaviorMajor)} によるスポーツマンシップに大きく反する行為: `
             + event.unsportingBehaviorMajor.reason;
+    }
+    if (event.boundaryCrossing != null) {
+        return `${teamAndBot(event.boundaryCrossing)} はフィールド境界を超えてボールを蹴りました`;
+    }
+    if (event.penaltyKickFailed != null) {
+        return `${teamAndBot(event.penaltyKickFailed)} のペナルティーキックは失敗しました`;
+    }
+    if (event.challengeFlag != null) {
+        return `${teamAndBot(event.challengeFlag)} のチャレンジフラグが立ちました`;
+    }
+    if (event.emergencyStop != null) {
+        return `${teamAndBot(event.emergencyStop)} による緊急停止が行われました`;
     }
     return '不明なゲームイベント';
 };
